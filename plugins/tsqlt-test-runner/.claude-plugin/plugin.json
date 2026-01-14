@@ -5,7 +5,7 @@
   "author": {
     "name": "AgileSqlClub"
   },
-  "repository": "https://github.com/AgileSqlClub/Claude-Marketplace",
+  "repository": "https://github.com/AgileSqlClub-Claude-Marketplace/Claude-Marketplace",
   "license": "MIT",
   "skills": "./skills",
   "commands": "./commands"
