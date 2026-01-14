@@ -1,0 +1,12 @@
+{
+  "name": "tsqlt-test-runner",
+  "version": "1.0.0",
+  "description": "Run tSQLt database unit tests from Claude Code",
+  "author": {
+    "name": "AgileSqlClub"
+  },
+  "repository": "https://github.com/AgileSqlClub/Claude-Marketplace",
+  "license": "MIT",
+  "skills": "./skills",
+  "commands": "./commands"
+}

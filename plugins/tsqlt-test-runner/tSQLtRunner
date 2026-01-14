@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# tSQLt Test Runner - Platform detection wrapper
+# Automatically runs the correct binary for your platform
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Detect platform and architecture
+detect_platform() {
+    local os=""
+    local arch=""
+
+    # Detect OS
+    case "$OSTYPE" in
+        msys*|cygwin*|win32)
+            os="win"
+            ;;
+        darwin*)
+            os="osx"
+            ;;
+        linux*)
+            os="linux"
+            ;;
+        *)
+            echo "Error: Unsupported OS type: $OSTYPE" >&2
+            exit 1
+            ;;
+    esac
+
+    # Detect architecture
+    arch="$(uname -m)"
+    case "$arch" in
+        x86_64|amd64)
+            arch="x64"
+            ;;
+        arm64|aarch64)
+            arch="arm64"
+            ;;
+        *)
+            echo "Error: Unsupported architecture: $arch" >&2
+            exit 1
+            ;;
+    esac
+
+    echo "${os}-${arch}"
+}
+
+# Get platform
+PLATFORM=$(detect_platform)
+
+# Build the path to the binary
+if [[ "$PLATFORM" == win-* ]]; then
+    BINARY="$SCRIPT_DIR/bin/$PLATFORM/tSQLtRunner.exe"
+else
+    BINARY="$SCRIPT_DIR/bin/$PLATFORM/tSQLtRunner"
+fi
+
+# Check if binary exists
+if [[ ! -f "$BINARY" ]]; then
+    echo "Error: Binary not found for platform $PLATFORM" >&2
+    echo "Expected: $BINARY" >&2
+    echo "" >&2
+    echo "Available platforms:" >&2
+    ls -1 "$SCRIPT_DIR/bin/" 2>/dev/null || echo "  (none)" >&2
+    exit 1
+fi
+
+# Make sure it's executable (for Unix-like systems)
+chmod +x "$BINARY" 2>/dev/null
+
+# Run the binary with all arguments passed through
+exec "$BINARY" "$@"

@@ -1,0 +1,23 @@
+{
+  "name": "agilesqlclub-marketplace",
+  "owner": {
+    "name": "AgileSqlClub"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for SQL Server and tSQLt development",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "tsqlt-test-runner",
+      "source": "./plugins/tsqlt-test-runner",
+      "description": "Run tSQLt database unit tests directly from Claude Code. No .NET SDK required - includes self-contained binaries for all platforms.",
+      "version": "1.0.0",
+      "author": {
+        "name": "AgileSqlClub"
+      },
+      "license": "MIT",
+      "keywords": ["sql", "testing", "database", "tsqlt", "sql-server"]
+    }
+  ]
+}
